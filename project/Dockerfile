@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
-    && apt-get -y install netcat gcc curl \
+    && apt-get -y install netcat gcc curl postgresql \
     && apt-get clean
 
 # Install poetry
@@ -20,3 +20,8 @@ COPY ./poetry.lock ./pyproject.toml /usr/src/app/
 RUN poetry install --no-dev --no-interaction --no-ansi
 
 COPY . .
+
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
