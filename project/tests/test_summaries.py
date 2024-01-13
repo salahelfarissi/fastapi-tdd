@@ -50,3 +50,21 @@ def test_read_summary_incorrect_id(test_app_with_db):
     res = test_app_with_db.get("/summaries/999")
     assert res.status_code == 404
     assert res.json()["detail"] == "Summary not found"
+
+
+def test_read_all_summaries(test_app_with_db):
+    res1 = test_app_with_db.post(
+        "/summaries/", data=json.dumps({"url": "https://foo.bar"})
+    )
+    summary_id1 = res1.json()["id"]
+    res2 = test_app_with_db.post(
+        "/summaries/", data=json.dumps({"url": "https://foo.baz"})
+    )
+    summary_id2 = res2.json()["id"]
+
+    res3 = test_app_with_db.get("/summaries/")
+    assert res3.status_code == 200
+
+    response_list = res3.json()
+    assert len(list(filter(lambda d: d["id"] == summary_id1, response_list))) == 1
+    assert len(list(filter(lambda d: d["id"] == summary_id2, response_list))) == 1

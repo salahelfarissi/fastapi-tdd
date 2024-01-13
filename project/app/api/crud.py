@@ -13,3 +13,8 @@ async def get(id: int) -> dict | None:
     if summary:
         return summary
     return None
+
+
+async def get_all() -> list[dict]:
+    summaries = await TextSummary.all().values()
+    return summaries
