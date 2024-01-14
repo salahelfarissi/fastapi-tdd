@@ -1,3 +1,10 @@
 {
-    "vim.useCtrlKeys": false
+    "python.defaultInterpreterPath": "${workspaceFolder}/project/.venv/bin/python",
+    "vim.handleKeys": {
+        "<C-b>": false,
+        "<C-p>": false,
+        "<C-j>": false,
+        "<C-ù>": false,
+        "<C-w>": false,
+    }
 }
