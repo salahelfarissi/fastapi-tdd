@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3.11.2-slim-buster
+FROM python:3.12.1-slim-bookworm
 
 WORKDIR /usr/src/app
 
@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
-    && apt-get -y install netcat gcc curl postgresql \
+    && apt-get -y install netcat-traditional gcc curl postgresql \
     && apt-get clean
 
 # Install poetry

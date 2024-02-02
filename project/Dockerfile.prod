@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3.11.2-slim-buster
+FROM python:3.12.1-slim-bookworm
 
 RUN mkdir -p /home/app
 
@@ -16,7 +16,7 @@ ENV ENVIRONMENT prod
 ENV TESTING 0
 
 RUN apt-get update \
-    && apt-get -y install netcat gcc curl postgresql \
+    && apt-get -y install netcat-traditional gcc curl postgresql \
     && apt-get clean
 
 # Install poetry

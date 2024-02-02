@@ -10,7 +10,7 @@ def test_create_summary(test_app_with_db):
     )
 
     assert response.status_code == 201
-    assert response.json()["url"] == "https://foo.bar"
+    assert response.json()["url"] == "https://foo.bar/"
 
 
 def test_create_summary_invalid_json(test_app):
@@ -41,7 +41,7 @@ def test_read_summary(test_app_with_db):
 
     response_dict = res.json()
     assert response_dict["id"] == summary_id
-    assert response_dict["url"] == "https://foo.bar"
+    assert response_dict["url"] == "https://foo.bar/"
     assert response_dict["summary"]
     assert response_dict["created_at"]
 
