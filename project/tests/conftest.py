@@ -7,7 +7,6 @@ from tortoise.contrib.fastapi import register_tortoise
 from app.config import Settings, get_settings
 from app.main import create_application
 
-
 DATABASE_URL = os.environ.get("DATABASE_TEST_URL") or "sqlite://sqlite.db"
 
 
