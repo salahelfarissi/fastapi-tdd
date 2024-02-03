@@ -52,10 +52,10 @@ jobs:
       - name: Build image
         run: |
           docker build \
-            --cache-from ${{ env.IMAGE }}:latest \
-            --tag ${{ env.IMAGE }}:latest \
-            --file ./project/Dockerfile.prod \
-            "./project"
+          --cache-from ${{ env.IMAGE }}:latest \
+          --tag ${{ env.IMAGE }}:latest \
+          --file ./project/Dockerfile.prod \
+          "./project"
       - name: Run container
         run: |
           docker run \
