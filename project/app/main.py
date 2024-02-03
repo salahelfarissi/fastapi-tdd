@@ -1,7 +1,9 @@
+"""Main application and routing logic."""
+
 import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from tortoise.contrib.fastapi import register_tortoise
 
 from app.api import ping, summaries
 from app.db import init_db
@@ -10,6 +12,7 @@ log = logging.getLogger("uvicorn")
 
 
 def create_application() -> FastAPI:
+    """Create a FastAPI application with all the routing logic."""
     application = FastAPI()
     application.include_router(ping.router)
     application.include_router(
@@ -22,14 +25,14 @@ def create_application() -> FastAPI:
 app = create_application()
 
 
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan context manager."""
     log.info("Starting up...")
     init_db(app)
     log.info("Startup complete!")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    log.info("Shutting down...")
-    log.info("Shutdown complete!")
+    try:
+        yield
+    finally:
+        log.info("Shutting down...")
+        log.info("Shutdown complete!")

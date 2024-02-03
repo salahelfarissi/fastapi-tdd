@@ -6,7 +6,7 @@ import pytest
 def test_create_summary(test_app_with_db):
     response = test_app_with_db.post(
         "/summaries/",
-        data=json.dumps({"url": "https://foo.bar"}),
+        data=json.dumps({"url": "https://foo.bar/"}),
     )
 
     assert response.status_code == 201
@@ -32,7 +32,7 @@ def test_create_summary_invalid_json(test_app):
 
 def test_read_summary(test_app_with_db):
     res = test_app_with_db.post(
-        "/summaries/", data=json.dumps({"url": "https://foo.bar"})
+        "/summaries/", data=json.dumps({"url": "https://foo.bar/"})
     )
     summary_id = res.json()["id"]
 
