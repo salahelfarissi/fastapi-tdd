@@ -8,6 +8,12 @@ from app.config import Settings, get_settings
 from app.main import create_application
 
 
+DATABASE_URL = (
+    os.environ.get("DATABASE_TEST_URL")
+    or "postgres://postgres:postgres@web-db:5432/web_dev"
+)
+
+
 def get_settings_override():
     return Settings(testing=1, database_url=os.environ.get("DATABASE_TEST_URL"))
 
