@@ -8,14 +8,11 @@ from app.config import Settings, get_settings
 from app.main import create_application
 
 
-DATABASE_URL = (
-    os.environ.get("DATABASE_TEST_URL")
-    or "postgres://postgres:postgres@web-db:5432/web_dev"
-)
+DATABASE_URL = os.environ.get("DATABASE_TEST_URL") or "sqlite://sqlite.db"
 
 
 def get_settings_override():
-    return Settings(testing=1, database_url=os.environ.get("DATABASE_TEST_URL"))
+    return Settings(testing=1, database_url=DATABASE_URL)
 
 
 @pytest.fixture(scope="module")
@@ -36,7 +33,7 @@ def test_app_with_db():
     app.dependency_overrides[get_settings] = get_settings_override
     register_tortoise(
         app,
-        db_url=os.environ.get("DATABASE_TEST_URL"),
+        db_url=DATABASE_URL,
         modules={"models": ["app.models.tortoise"]},
         generate_schemas=True,
         add_exception_handlers=True,
