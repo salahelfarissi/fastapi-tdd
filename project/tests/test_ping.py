@@ -1,4 +1,4 @@
-from app import main
+"""Test ping route."""
 
 
 def test_ping(test_app):
